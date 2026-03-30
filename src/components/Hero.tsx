@@ -46,7 +46,7 @@ export default function Hero() {
               <img
                 alt="DISKOHEINZ"
                 src="/images/diskoheinz-portrait.jpg"
-                className="w-full h-full object-cover object-[center_15%] group-hover:scale-105 transition-transform duration-700"
+                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
               />
             </div>
           </div>
