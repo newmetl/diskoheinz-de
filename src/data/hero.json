@@ -1,0 +1,33 @@
+{
+  "name": "DISKOHEINZ",
+  "tagline": "Techno and house with a slice of disco, soul, and love.",
+  "badge": "Soul & Love",
+  "avatar": "/images/diskoheinz-avatar.jpg",
+  "socials": [
+    {
+      "platform": "email",
+      "url": "mailto:booking@diskoheinz.de",
+      "icon": "Mail"
+    },
+    {
+      "platform": "soundcloud",
+      "url": "https://soundcloud.com/diskoheinz",
+      "icon": "CloudHail"
+    },
+    {
+      "platform": "spotify",
+      "url": "https://open.spotify.com/artist/diskoheinz",
+      "icon": "Music"
+    },
+    {
+      "platform": "instagram",
+      "url": "https://instagram.com/diskoheinz",
+      "icon": "Instagram"
+    },
+    {
+      "platform": "youtube",
+      "url": "https://youtube.com/playlist?list=PLu_PhkI5ea5sS2SCakYONpxvsPmWJH1vq",
+      "icon": "Youtube"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+[
+  {
+    "id": "1",
+    "label": "Diskoheinz Press Kit",
+    "url": "https://drive.google.com/drive/folders/diskoheinz-press-kit",
+    "description": "Profilbilder, Biografien & Rider",
+    "icon": "FileText",
+    "sort_order": 1,
+    "is_active": true
+  },
+  {
+    "id": "2",
+    "label": "Join the Diskoverse",
+    "url": "https://linktr.ee/diskoverse",
+    "description": "Das Diskoheinz Universum",
+    "icon": "Globe",
+    "sort_order": 2,
+    "is_active": true
+  },
+  {
+    "id": "3",
+    "label": "Livemixes on YouTube",
+    "url": "https://youtube.com/playlist?list=PLu_PhkI5ea5sS2SCakYONpxvsPmWJH1vq",
+    "description": "DJ Sets & Live Recordings",
+    "icon": "Youtube",
+    "sort_order": 3,
+    "is_active": true
+  },
+  {
+    "id": "4",
+    "label": "Diskoheinz SoundCloud",
+    "url": "https://soundcloud.com/diskoheinz",
+    "description": "Mixes, Edits & Originals",
+    "icon": "CloudHail",
+    "sort_order": 4,
+    "is_active": true
+  },
+  {
+    "id": "5",
+    "label": "Diskologne",
+    "url": "https://diskologne.de",
+    "description": "Event-Reihe aus Koeln",
+    "icon": "Disc3",
+    "sort_order": 5,
+    "is_active": true
+  },
+  {
+    "id": "6",
+    "label": "Disko Dynamite",
+    "url": "https://instagram.com/diskodynamite",
+    "description": "@diskodynamite auf Instagram",
+    "icon": "Zap",
+    "sort_order": 6,
+    "is_active": true
+  },
+  {
+    "id": "7",
+    "label": "Weekly Favorites",
+    "url": "https://open.spotify.com/playlist/51FjTDkg5rs203WX1GiQ5p",
+    "description": "Kuratierte Spotify Playlist",
+    "icon": "Music",
+    "sort_order": 7,
+    "is_active": true
+  }
+]

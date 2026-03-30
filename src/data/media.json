@@ -1,0 +1,25 @@
+[
+  {
+    "id": "yt-1",
+    "type": "youtube",
+    "url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLu_PhkI5ea5sS2SCakYONpxvsPmWJH1vq&rel=0&modestbranding=1",
+    "title": "Livemixes Playlist",
+    "variant": "playlist"
+  },
+  {
+    "id": "sc-1",
+    "type": "soundcloud",
+    "url": "https://soundcloud.com/diskoheinz",
+    "title": "Latest Mixes",
+    "variant": "profile",
+    "height": 166
+  },
+  {
+    "id": "sp-1",
+    "type": "spotify",
+    "url": "https://open.spotify.com/playlist/51FjTDkg5rs203WX1GiQ5p",
+    "title": "Weekly Favorites",
+    "variant": "playlist",
+    "height": 352
+  }
+]

@@ -1,0 +1,60 @@
+[
+  {
+    "id": "1",
+    "title": "Diskologne Night",
+    "venue": "Club Subway",
+    "city": "Cologne",
+    "date": "2026-04-12",
+    "time": "23:00",
+    "event_url": "https://diskologne.de",
+    "stage": "Main Floor",
+    "status": "confirmed"
+  },
+  {
+    "id": "2",
+    "title": "Warehouse Sessions",
+    "venue": "Artheater",
+    "city": "Cologne",
+    "date": "2026-04-26",
+    "time": "22:00",
+    "stage": "Techno Loft",
+    "status": "confirmed"
+  },
+  {
+    "id": "3",
+    "title": "Disko Dynamite Open Air",
+    "venue": "Stadtgarten",
+    "city": "Cologne",
+    "date": "2026-05-16",
+    "time": "16:00",
+    "event_url": "https://instagram.com/diskodynamite",
+    "status": "confirmed"
+  },
+  {
+    "id": "4",
+    "title": "Diskologne x Subway",
+    "venue": "Club Subway",
+    "city": "Cologne",
+    "date": "2026-02-15",
+    "time": "23:00",
+    "status": "confirmed"
+  },
+  {
+    "id": "5",
+    "title": "NYE Special",
+    "venue": "Odonien",
+    "city": "Cologne",
+    "date": "2025-12-31",
+    "time": "23:00",
+    "status": "confirmed"
+  },
+  {
+    "id": "6",
+    "title": "Basement Sessions",
+    "venue": "Heinz Gaul",
+    "city": "Cologne",
+    "date": "2025-11-08",
+    "time": "23:00",
+    "status": "confirmed"
+  }
+]
