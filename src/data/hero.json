@@ -6,28 +6,38 @@
   "socials": [
     {
       "platform": "email",
-      "url": "mailto:booking@diskoheinz.de",
-      "icon": "Mail"
-    },
-    {
-      "platform": "soundcloud",
-      "url": "https://soundcloud.com/diskoheinz",
-      "icon": "CloudHail"
-    },
-    {
-      "platform": "spotify",
-      "url": "https://open.spotify.com/artist/diskoheinz",
-      "icon": "Music"
+      "label": "Mail",
+      "url": "mailto:hello@diskoheinz.de"
     },
     {
       "platform": "instagram",
-      "url": "https://instagram.com/diskoheinz",
-      "icon": "Instagram"
+      "label": "Instagram",
+      "url": "https://instagram.com/Diskoheinz"
+    },
+    {
+      "platform": "soundcloud",
+      "label": "SoundCloud",
+      "url": "https://soundcloud.com/diskoheinz"
+    },
+    {
+      "platform": "spotify",
+      "label": "Spotify",
+      "url": "https://open.spotify.com/intl-de/artist/1K7OhRLuygdXvE8MJO2MwM"
     },
     {
       "platform": "youtube",
-      "url": "https://youtube.com/playlist?list=PLu_PhkI5ea5sS2SCakYONpxvsPmWJH1vq",
-      "icon": "Youtube"
+      "label": "YouTube",
+      "url": "https://www.youtube.com/playlist?list=PLu_PhkI5ea5sS2SCakYONpxvsPmWJH1vq"
+    },
+    {
+      "platform": "whatsapp",
+      "label": "Diskoverse on WhatsApp",
+      "url": "https://chat.whatsapp.com/DZdkMFhhbwXKs3IBML7LgL?mode=wwt"
+    },
+    {
+      "platform": "phone",
+      "label": "Phone",
+      "url": "tel:+491732371217"
     }
   ]
 }

@@ -79,7 +79,7 @@ function GigRow({ gig, variant }: { gig: Gig; variant: "upcoming" | "past" }) {
 }
 
 export default function GigsSection() {
-  const [showPast, setShowPast] = useState(false);
+  const [showPast, setShowPast] = useState(true);
   const today = new Date().toISOString().split("T")[0];
 
   const gigs = gigsData as Gig[];

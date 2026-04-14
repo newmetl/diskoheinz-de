@@ -1,9 +1,9 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import LinkButtons from "@/components/LinkButtons";
 import MediaSection from "@/components/MediaSection";
 import GigsSection from "@/components/GigsSection";
 import BookingForm from "@/components/BookingForm";
+import ArtistBio from "@/components/ArtistBio";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -12,10 +12,10 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <LinkButtons />
         <MediaSection />
         <GigsSection />
         <BookingForm />
+        <ArtistBio />
       </main>
       <Footer />
     </>

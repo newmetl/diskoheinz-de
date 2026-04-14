@@ -35,6 +35,8 @@
   --color-on-tertiary-container: #006f77;
   --color-tertiary-fixed: #7df4ff;
   --color-tertiary-fixed-dim: #00dbe9;
+  --color-on-tertiary-fixed: #00363a;
+  --color-on-tertiary-fixed-variant: #004f55;
 
   /* On Surface */
   --color-on-surface: #e2e2e2;

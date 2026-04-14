@@ -1,13 +1,45 @@
-import { Mail } from "lucide-react";
-import { InstagramIcon, YoutubeIcon, SoundCloudIcon, SpotifyIcon } from "./icons";
+import Image from "next/image";
 import heroData from "@/data/hero.json";
 
-const socialIcons: Record<string, React.ComponentType<{ size?: number }>> = {
-  instagram: InstagramIcon,
-  youtube: YoutubeIcon,
-  soundcloud: SoundCloudIcon,
-  spotify: SpotifyIcon,
-  email: Mail,
+const ICONS: Record<string, React.ReactNode> = {
+  email: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </svg>
+  ),
+  instagram: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  ),
+  soundcloud: (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M2 15.5c0-.8.2-1.5.6-2.2v4.4c-.4-.7-.6-1.4-.6-2.2Zm2-3.2v6.4a.4.4 0 0 0 .8 0v-6.4a.4.4 0 0 0-.8 0Zm2-1v8.4a.4.4 0 0 0 .8 0v-8.4a.4.4 0 0 0-.8 0Zm2-.5v9a.4.4 0 0 0 .8 0v-9a.4.4 0 0 0-.8 0Zm2 .2v8.8a.4.4 0 0 0 .8 0v-8.8a.4.4 0 0 0-.8 0Zm2.4-2.5c-.2 0-.4.1-.4.3v11.2a.4.4 0 0 0 .4.3h7.8c1.8 0 3.3-1.5 3.3-3.3 0-1.9-1.5-3.4-3.3-3.4-.5 0-1 .1-1.4.3-.2-2.8-2.6-5-5.4-5-.4 0-.7 0-1 .1v-.2a.4.4 0 0 0-.4-.3h-.1Z" />
+    </svg>
+  ),
+  spotify: (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.6 14.4a.62.62 0 0 1-.86.2c-2.34-1.43-5.29-1.75-8.77-.96a.62.62 0 1 1-.28-1.22c3.8-.87 7.07-.5 9.7 1.12.3.18.38.56.2.86Zm1.23-2.72a.78.78 0 0 1-1.07.26c-2.68-1.65-6.77-2.13-9.94-1.17a.78.78 0 1 1-.45-1.49c3.63-1.1 8.14-.56 11.2 1.32.37.22.49.7.26 1.08Zm.1-2.84c-3.21-1.91-8.52-2.09-11.59-1.15a.94.94 0 1 1-.54-1.8c3.52-1.07 9.39-.86 13.09 1.34a.94.94 0 1 1-.96 1.61Z" />
+    </svg>
+  ),
+  youtube: (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M23 7.3c-.3-1.1-1-1.9-2.1-2.2C19 4.6 12 4.6 12 4.6s-7 0-8.9.5C2 5.4 1.3 6.2 1 7.3.5 9.2.5 12 .5 12s0 2.8.5 4.7c.3 1.1 1 1.9 2.1 2.2 1.9.5 8.9.5 8.9.5s7 0 8.9-.5c1.1-.3 1.8-1.1 2.1-2.2.5-1.9.5-4.7.5-4.7s0-2.8-.5-4.7ZM9.8 15.6V8.4l6.2 3.6-6.2 3.6Z" />
+    </svg>
+  ),
+  whatsapp: (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.5 14.4c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.4.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1.1-1.1 2.6 0 1.5 1.1 3 1.3 3.2.2.2 2.2 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4 0-.1-.3-.2-.5-.4ZM12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z" />
+    </svg>
+  ),
+  phone: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.4 2.1L7.9 9.8a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z" />
+    </svg>
+  ),
 };
 
 export default function Footer() {
@@ -15,35 +47,34 @@ export default function Footer() {
     <footer className="bg-surface border-t border-white/5">
       {/* Social Icons Row */}
       <div className="py-12 border-b border-white/5">
-        <div className="flex justify-center gap-8 md:gap-12">
-          {heroData.socials.map((social) => {
-            const Icon = socialIcons[social.platform];
-            if (!Icon) return null;
-            return (
-              <a
-                key={social.platform}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-on-surface-variant hover:text-white transition-colors group"
-              >
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-[10px] uppercase font-bold tracking-tighter opacity-0 group-hover:opacity-100 transition-opacity">
-                    {social.platform.slice(0, 2).toUpperCase()}
-                  </span>
-                  <Icon size={28} />
-                </div>
-              </a>
-            );
-          })}
-        </div>
+        <nav aria-label="Social" className="flex flex-wrap gap-2 sm:gap-3 justify-center px-6">
+          {heroData.socials.map((social) => (
+            <a
+              key={social.platform}
+              href={social.url}
+              aria-label={social.label}
+              title={social.label}
+              target={social.url.startsWith("http") ? "_blank" : undefined}
+              rel={social.url.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="group relative flex items-center justify-center w-11 h-11 rounded-full border border-outline-variant/60 bg-surface-container-low/40 backdrop-blur-md text-on-surface-variant hover:text-primary hover:border-primary/60 hover:bg-surface-container-low/70 hover:shadow-[0_0_18px_rgba(255,178,184,0.35)] transition-all duration-300"
+            >
+              <span className="w-5 h-5 block">{ICONS[social.platform]}</span>
+            </a>
+          ))}
+        </nav>
       </div>
 
       {/* Footer Bottom */}
       <div className="flex flex-col md:flex-row justify-between items-center px-8 py-8 gap-6">
-        <div className="font-headline font-bold text-white text-lg tracking-tighter">
-          DISKOHEINZ
-        </div>
+        <a href="#" className="flex items-center">
+          <Image
+            src="/images/logo_260x127.png"
+            alt="Diskoheinz"
+            width={130}
+            height={63}
+            className="h-auto w-[96px]"
+          />
+        </a>
         <div className="flex gap-8">
           <a
             href="/impressum"
@@ -59,7 +90,7 @@ export default function Footer() {
           </a>
         </div>
         <div className="text-xs tracking-widest text-on-surface-variant">
-          {`\u00A9 ${new Date().getFullYear()} DISKOHEINZ. SOUL & LOVE.`}
+          {`\u00A9 ${new Date().getFullYear()} DISKOHEINZ.`}
         </div>
       </div>
 

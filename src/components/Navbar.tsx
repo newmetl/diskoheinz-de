@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Calendar, PlayCircle, PenSquare, Menu, X } from "lucide-react";
 
 const navLinks = [
   { label: "Media", href: "#media" },
   { label: "Gigs", href: "#gigs" },
   { label: "Booking", href: "#booking" },
+  { label: "Artist Bio", href: "#about" },
 ];
 
 export default function Navbar() {
@@ -29,11 +31,15 @@ export default function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <a
-          href="#"
-          className="text-2xl font-bold tracking-tighter text-white font-headline uppercase"
-        >
-          DISKOHEINZ
+        <a href="#" className="flex items-center">
+          <Image
+            src="/images/logo_260x127.png"
+            alt="Diskoheinz"
+            width={130}
+            height={63}
+            priority
+            className="h-auto w-[96px]"
+          />
         </a>
 
         {/* Desktop Links */}

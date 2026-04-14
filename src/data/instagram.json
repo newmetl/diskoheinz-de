@@ -1,0 +1,30 @@
+[
+  {
+    "id": "post-1",
+    "url": "https://instagram.com/diskoheinz",
+    "image": "/images/insta-1.jpg",
+    "alt": "Vinyl record on turntable in moody lighting",
+    "postedAt": "2026-04-10"
+  },
+  {
+    "id": "post-2",
+    "url": "https://instagram.com/diskoheinz",
+    "image": "/images/insta-2.jpg",
+    "alt": "Crowd silhouette with strobe light",
+    "postedAt": "2026-04-05"
+  },
+  {
+    "id": "post-3",
+    "url": "https://instagram.com/diskoheinz",
+    "image": "/images/insta-3.jpg",
+    "alt": "DJ booth with mixers under magenta light",
+    "postedAt": "2026-03-28"
+  },
+  {
+    "id": "post-4",
+    "url": "https://instagram.com/diskoheinz",
+    "image": "/images/insta-4.jpg",
+    "alt": "Minimalist techno event poster",
+    "postedAt": "2026-03-20"
+  }
+]

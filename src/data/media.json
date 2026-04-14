@@ -1,25 +1,15 @@
 [
   {
-    "id": "yt-1",
+    "id": "yt-playlist",
     "type": "youtube",
     "url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLu_PhkI5ea5sS2SCakYONpxvsPmWJH1vq&rel=0&modestbranding=1",
-    "title": "Livemixes Playlist",
-    "variant": "playlist"
+    "title": "YouTube Recordings"
   },
   {
-    "id": "sc-1",
+    "id": "sc-tracks",
     "type": "soundcloud",
-    "url": "https://soundcloud.com/diskoheinz",
-    "title": "Latest Mixes",
-    "variant": "profile",
-    "height": 166
-  },
-  {
-    "id": "sp-1",
-    "type": "spotify",
-    "url": "https://open.spotify.com/playlist/51FjTDkg5rs203WX1GiQ5p",
-    "title": "Weekly Favorites",
-    "variant": "playlist",
-    "height": 352
+    "url": "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/diskoheinz&color=%2300dbe9&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false",
+    "title": "Soundcloud Sets",
+    "height": 450
   }
 ]

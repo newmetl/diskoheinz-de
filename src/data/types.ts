@@ -12,16 +12,6 @@ export interface HeroData {
   socials: SocialLink[];
 }
 
-export interface LinkButton {
-  id: string;
-  label: string;
-  url: string;
-  description?: string;
-  icon?: string;
-  sort_order: number;
-  is_active: boolean;
-}
-
 export interface MediaEmbed {
   id: string;
   type: "youtube" | "soundcloud" | "spotify";
@@ -29,6 +19,14 @@ export interface MediaEmbed {
   title?: string;
   variant?: string;
   height?: number;
+}
+
+export interface InstagramPost {
+  id: string;
+  url: string;
+  image: string;
+  alt: string;
+  postedAt: string;
 }
 
 export interface Gig {
