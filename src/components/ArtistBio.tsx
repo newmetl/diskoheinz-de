@@ -32,7 +32,7 @@ export default function ArtistBio() {
         >
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl border-l-4 border-tertiary-fixed-dim bg-surface-container-low">
             <Image
-              src="/images/diskoheinz-portrait.jpg"
+              src="/images/diskoheinz-portrait-2026.jpg"
               alt="Diskoheinz portrait"
               fill
               sizes="(max-width: 768px) 100vw, 40vw"
@@ -50,26 +50,56 @@ export default function ArtistBio() {
         >
           <p>
             Techno and house with a slice of disco, soul, and love – that&apos;s{" "}
-            <span className="text-white font-semibold">Diskoheinz</span>. As
-            founder and resident of <span className="text-white font-semibold">Diskologne</span>, he blends powerful house beats
-            with shimmering disco influences, driven by a deep passion for
-            music and an unstoppable urge to connect people through sound.
-            Known for his smooth and engaging sets, he&apos;s a passionate
-            advocate for inclusive and respectful music scenes.
+            <a
+              href="https://www.instagram.com/diskoheinz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white font-semibold hover:text-tertiary-fixed-dim transition-colors"
+            >
+              Diskoheinz
+            </a>
+            . As founder and resident of{" "}
+            <a
+              href="https://www.instagram.com/diskologne"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white font-semibold hover:text-tertiary-fixed-dim transition-colors"
+            >
+              Diskologne
+            </a>
+            , he blends powerful house beats with shimmering disco influences,
+            driven by a deep passion for music and an unstoppable urge to
+            connect people through sound. Known for his smooth and engaging
+            sets, he&apos;s a passionate advocate for inclusive and respectful
+            music scenes.
           </p>
           <p>
             His newest format,{" "}
-            <span className="text-white font-semibold">Disko Dynamite</span>,
-            is where friendships, music, and pure disko energy collide.
+            <a
+              href="https://www.instagram.com/diskodynamite"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white font-semibold hover:text-tertiary-fixed-dim transition-colors"
+            >
+              Disko Dynamite
+            </a>
+            , is where friendships, music, and pure disko energy collide.
             Diskoheinz brings together his closest friends to fuse everything
             between house, tech house, and techno.
           </p>
           <p>
             When he&apos;s not lighting up dancefloors in Cologne and beyond,
             Diskoheinz is also a resident with Munich&apos;s{" "}
-            <span className="text-white font-semibold">friends.</span> community
-            , steadily spreading his signature blend of house, disco, and
-            connection further south.
+            <a
+              href="https://www.instagram.com/friendsandfriends.muc"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white font-semibold hover:text-tertiary-fixed-dim transition-colors"
+            >
+              friends.
+            </a>{" "}
+            community, steadily spreading his signature blend of house, disco,
+            and connection further south.
           </p>
           <p className="text-white font-semibold">
             One thing&apos;s for sure: Diskoheinz is just getting started.

@@ -32,10 +32,7 @@ export default function ConsentEmbed({
         -Inhalte zu laden.
       </p>
       <p className="text-[10px] text-on-surface-variant/60 text-center">
-        Dabei werden Daten an {platform} übertragen.{" "}
-        <a href="/datenschutz" className="underline hover:text-white">
-          Mehr erfahren
-        </a>
+        Dabei werden Daten an {platform} übertragen.
       </p>
     </div>
   );

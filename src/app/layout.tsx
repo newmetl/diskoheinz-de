@@ -21,8 +21,8 @@ const ogDescription =
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "DISKOHEINZ – DJ, Producer & Booking",
-    template: "%s | DISKOHEINZ",
+    default: "Diskoheinz.de",
+    template: "Diskoheinz.de",
   },
   description:
     "Official website of DISKOHEINZ – DJ, producer, and curator of techno and house with a slice of disco, soul, and love. Book now for club nights, festivals, and private events.",

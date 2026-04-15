@@ -19,7 +19,7 @@ const ICONS: Record<string, React.ReactNode> = {
     </svg>
   ),
   soundcloud: (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg viewBox="0 3 24 24" fill="currentColor" aria-hidden="true">
       <path d="M2 15.5c0-.8.2-1.5.6-2.2v4.4c-.4-.7-.6-1.4-.6-2.2Zm2-3.2v6.4a.4.4 0 0 0 .8 0v-6.4a.4.4 0 0 0-.8 0Zm2-1v8.4a.4.4 0 0 0 .8 0v-8.4a.4.4 0 0 0-.8 0Zm2-.5v9a.4.4 0 0 0 .8 0v-9a.4.4 0 0 0-.8 0Zm2 .2v8.8a.4.4 0 0 0 .8 0v-8.8a.4.4 0 0 0-.8 0Zm2.4-2.5c-.2 0-.4.1-.4.3v11.2a.4.4 0 0 0 .4.3h7.8c1.8 0 3.3-1.5 3.3-3.3 0-1.9-1.5-3.4-3.3-3.4-.5 0-1 .1-1.4.3-.2-2.8-2.6-5-5.4-5-.4 0-.7 0-1 .1v-.2a.4.4 0 0 0-.4-.3h-.1Z" />
     </svg>
   ),
