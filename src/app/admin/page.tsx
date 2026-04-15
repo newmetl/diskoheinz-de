@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { listGigs } from "@/lib/db";
 import { deleteGigAction } from "./actions";
+import { DeleteGigButton } from "@/components/admin/DeleteGigButton";
 import { hasTime, isPastGig } from "@/lib/gig-time";
 import type { Gig } from "@/data/types";
 
@@ -68,14 +69,7 @@ function GigRow({ gig, isPast }: { gig: Gig; isPast: boolean }) {
         >
           Edit
         </Link>
-        <form action={deleteWithId}>
-          <button
-            type="submit"
-            className="px-4 py-2 border border-error/40 text-error text-[10px] font-bold uppercase tracking-widest hover:bg-error hover:text-white transition-all"
-          >
-            Delete
-          </button>
-        </form>
+        <DeleteGigButton action={deleteWithId} gigTitle={gig.title} />
       </div>
     </div>
   );
