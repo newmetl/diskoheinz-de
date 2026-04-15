@@ -22,13 +22,25 @@ export interface MediaEmbed {
 }
 
 export interface Gig {
+  // Core
   id: string;
   title: string;
   venue: string;
   city: string;
-  date: string;
-  time?: string;
-  event_url?: string;
+  country?: string;
+  starts_at: string; // ISO datetime with timezone offset
+  ends_at?: string; // ISO datetime with timezone offset
+
+  // Display
   stage?: string;
-  status?: "confirmed" | "pending" | "sold_out";
+  lineup?: string[];
+  description?: string;
+  flyer_url?: string;
+  event_url?: string;
+  ticket_url?: string;
+
+  // Flags
+  status: "confirmed" | "pending" | "sold_out" | "cancelled";
+  is_headliner?: boolean;
+  is_private?: boolean;
 }
