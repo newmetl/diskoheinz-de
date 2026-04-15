@@ -84,6 +84,7 @@ export default function Hero() {
               height={313}
               priority
               className="h-auto w-full"
+              style={{ width: "100%", height: "auto" }}
             />
           </h1>
         </motion.div>
