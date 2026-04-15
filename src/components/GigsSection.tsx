@@ -5,10 +5,11 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ExternalLink, ChevronDown, Lock, Star, Disc3 } from "lucide-react";
 import type { Gig } from "@/data/types";
-import gigsData from "@/data/gigs.json";
+import { hasTime, isPastGig } from "@/lib/gig-time";
 
 function formatDateParts(iso: string) {
-  const date = new Date(iso);
+  // Treat date-only values as local calendar dates to avoid UTC-shift surprises.
+  const date = hasTime(iso) ? new Date(iso) : new Date(`${iso}T12:00:00`);
   const day = date.getDate().toString().padStart(2, "0");
   const month = date
     .toLocaleString("en", { month: "short" })
@@ -17,13 +18,14 @@ function formatDateParts(iso: string) {
   return { day, month, year };
 }
 
-function formatTimeRange(startsAt: string, endsAt?: string) {
+function formatTimeRange(startsAt: string, endsAt?: string): string | null {
+  if (!hasTime(startsAt)) return null;
   const start = new Date(startsAt);
   const startStr = start.toLocaleTimeString("de-DE", {
     hour: "2-digit",
     minute: "2-digit",
   });
-  if (!endsAt) return startStr;
+  if (!endsAt || !hasTime(endsAt)) return startStr;
   const end = new Date(endsAt);
   const endStr = end.toLocaleTimeString("de-DE", {
     hour: "2-digit",
@@ -90,6 +92,7 @@ function GigRow({ gig, variant }: { gig: Gig; variant: "upcoming" | "past" }) {
               alt={`${gig.title} flyer`}
               fill
               sizes="64px"
+              unoptimized={gig.flyer_url.startsWith("/uploads/")}
               className={`object-cover ${isCancelled ? "grayscale" : ""}`}
             />
           ) : (
@@ -159,18 +162,24 @@ function GigRow({ gig, variant }: { gig: Gig; variant: "upcoming" | "past" }) {
       </div>
 
       <div className="flex items-center justify-between md:justify-end gap-6 shrink-0">
-        {(gig.stage || gig.starts_at) && (
-          <div className="hidden lg:block text-right">
-            {gig.stage && (
-              <div className="text-xs font-bold text-white uppercase tracking-widest">
-                {gig.stage}
-              </div>
-            )}
-            <div className="text-[10px] text-on-surface-variant">
-              {formatTimeRange(gig.starts_at, gig.ends_at)}
+        {(() => {
+          const timeStr = formatTimeRange(gig.starts_at, gig.ends_at);
+          if (!gig.stage && !timeStr) return null;
+          return (
+            <div className="hidden lg:block text-right">
+              {gig.stage && (
+                <div className="text-xs font-bold text-white uppercase tracking-widest">
+                  {gig.stage}
+                </div>
+              )}
+              {timeStr && (
+                <div className="text-[10px] text-on-surface-variant">
+                  {timeStr}
+                </div>
+              )}
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         <StatusBadge status={gig.status} />
 
@@ -190,16 +199,14 @@ function GigRow({ gig, variant }: { gig: Gig; variant: "upcoming" | "past" }) {
   );
 }
 
-export default function GigsSection() {
+export default function GigsSection({ gigs }: { gigs: Gig[] }) {
   const [showPast, setShowPast] = useState(false);
-  const now = new Date().toISOString();
 
-  const gigs = gigsData as Gig[];
   const upcoming = gigs
-    .filter((g) => g.starts_at >= now)
+    .filter((g) => !isPastGig(g.starts_at, g.ends_at))
     .sort((a, b) => a.starts_at.localeCompare(b.starts_at));
   const past = gigs
-    .filter((g) => g.starts_at < now)
+    .filter((g) => isPastGig(g.starts_at, g.ends_at))
     .sort((a, b) => b.starts_at.localeCompare(a.starts_at));
 
   return (

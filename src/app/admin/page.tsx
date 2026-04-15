@@ -1,0 +1,134 @@
+import Link from "next/link";
+import Image from "next/image";
+import { listGigs } from "@/lib/db";
+import { deleteGigAction } from "./actions";
+import { hasTime, isPastGig } from "@/lib/gig-time";
+import type { Gig } from "@/data/types";
+
+function formatDate(iso: string) {
+  if (!hasTime(iso)) {
+    const d = new Date(`${iso}T12:00:00`);
+    return `${d.toLocaleDateString("de-DE", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    })} · time TBD`;
+  }
+  const d = new Date(iso);
+  return d.toLocaleString("de-DE", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+function GigRow({ gig, isPast }: { gig: Gig; isPast: boolean }) {
+  const deleteWithId = deleteGigAction.bind(null, gig.id);
+  return (
+    <div
+      className={`flex items-center gap-4 p-4 border-b border-white/5 ${
+        isPast ? "opacity-60" : ""
+      }`}
+    >
+      <div className="relative w-12 h-12 shrink-0 bg-surface-container-highest overflow-hidden">
+        {gig.flyer_url && (
+          <Image
+            src={gig.flyer_url}
+            alt=""
+            fill
+            sizes="48px"
+            className="object-cover"
+            unoptimized={gig.flyer_url.startsWith("/uploads/")}
+          />
+        )}
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center gap-2">
+          <span className="text-white font-bold truncate">{gig.title}</span>
+          <span className="text-[10px] uppercase tracking-widest text-on-surface-variant">
+            {gig.status}
+          </span>
+          {gig.is_headliner && (
+            <span className="text-[10px] text-tertiary-fixed-dim">★ headliner</span>
+          )}
+          {gig.is_private && (
+            <span className="text-[10px] text-on-surface-variant">private</span>
+          )}
+        </div>
+        <div className="text-xs text-on-surface-variant mt-1">
+          {formatDate(gig.starts_at)} · {gig.venue || "–"} · {gig.city || "–"}
+        </div>
+      </div>
+      <div className="flex items-center gap-2 shrink-0">
+        <Link
+          href={`/admin/gigs/${gig.id}`}
+          className="px-4 py-2 border border-outline-variant text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-surface transition-all"
+        >
+          Edit
+        </Link>
+        <form action={deleteWithId}>
+          <button
+            type="submit"
+            className="px-4 py-2 border border-error/40 text-error text-[10px] font-bold uppercase tracking-widest hover:bg-error hover:text-white transition-all"
+          >
+            Delete
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default async function AdminHome() {
+  const gigs = listGigs();
+  const upcoming = gigs
+    .filter((g) => !isPastGig(g.starts_at, g.ends_at))
+    .sort((a, b) => a.starts_at.localeCompare(b.starts_at));
+  const past = gigs
+    .filter((g) => isPastGig(g.starts_at, g.ends_at))
+    .sort((a, b) => b.starts_at.localeCompare(a.starts_at));
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-3xl font-headline font-black uppercase tracking-tighter text-white">
+          Gigs
+        </h1>
+        <Link
+          href="/admin/gigs/new"
+          className="px-6 py-3 bg-secondary text-on-secondary text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-opacity"
+        >
+          New gig
+        </Link>
+      </div>
+
+      <section>
+        <h2 className="text-xs uppercase tracking-widest text-on-surface-variant mb-2">
+          Upcoming ({upcoming.length})
+        </h2>
+        <div className="bg-surface-container-low">
+          {upcoming.length === 0 ? (
+            <p className="p-6 text-on-surface-variant text-sm">No upcoming gigs.</p>
+          ) : (
+            upcoming.map((g) => <GigRow key={g.id} gig={g} isPast={false} />)
+          )}
+        </div>
+      </section>
+
+      {past.length > 0 && (
+        <section className="mt-10">
+          <h2 className="text-xs uppercase tracking-widest text-on-surface-variant mb-2">
+            Past ({past.length})
+          </h2>
+          <div className="bg-surface-container-low">
+            {past.map((g) => (
+              <GigRow key={g.id} gig={g} isPast={true} />
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  );
+}
