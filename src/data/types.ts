@@ -21,14 +21,6 @@ export interface MediaEmbed {
   height?: number;
 }
 
-export interface InstagramPost {
-  id: string;
-  url: string;
-  image: string;
-  alt: string;
-  postedAt: string;
-}
-
 export interface Gig {
   id: string;
   title: string;

@@ -102,7 +102,7 @@ export default function GigsSection() {
         >
           <div>
             <h2 className="text-4xl md:text-6xl font-headline font-bold text-white tracking-tighter uppercase mb-2">
-              Tour <span className="text-secondary">Dates</span>
+              <span className="text-secondary">Gigs</span>
             </h2>
             <div className="h-1 w-24 bg-secondary" />
           </div>

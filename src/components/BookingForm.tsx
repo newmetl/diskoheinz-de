@@ -41,7 +41,6 @@ export default function BookingForm() {
         className="text-center mb-16"
       >
         <h2 className="text-4xl md:text-6xl font-headline font-bold text-white tracking-tighter uppercase mb-4">
-          Request{" "}
           <span className="text-tertiary-fixed-dim">Booking</span>
         </h2>
         <p className="text-on-surface-variant max-w-xl mx-auto">
@@ -187,7 +186,7 @@ export default function BookingForm() {
             <button
               type="submit"
               disabled={state.submitting}
-              className="w-full bg-tertiary-fixed-dim text-on-tertiary-fixed font-headline font-black uppercase tracking-[0.2em] py-5 rounded-md hover:shadow-[0_0_20px_rgba(0,219,233,0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-tertiary-fixed-dim text-on-tertiary-fixed font-headline font-black uppercase tracking-[0.2em] py-5 rounded-md hover:shadow-[0_0_20px_rgba(223,21,114,0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {state.submitting ? "Wird gesendet..." : "Send Inquiry"}
             </button>

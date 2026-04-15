@@ -47,7 +47,7 @@ const ICONS: Record<string, React.ReactNode> = {
 
 export default function Hero() {
   return (
-    <section className="relative h-screen min-h-[750px] flex items-center justify-center overflow-hidden">
+    <section id="hero" className="relative h-screen min-h-[750px] flex items-center justify-center overflow-hidden">
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl">
 
@@ -55,15 +55,31 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="mb-4 flex justify-center"
+          className="relative mb-12 md:mb-16 flex justify-center"
         >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, delay: 0.3 }}
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] max-w-[500px] aspect-square"
+          >
+            <Image
+              src="/images/disco.png"
+              alt=""
+              width={600}
+              height={600}
+              priority
+              className="w-full h-full object-contain opacity-70 drop-shadow-[0_0_40px_rgba(253,54,146,0.35)]"
+            />
+          </motion.div>
           <Image
             src="/images/logo_1280x627.png"
             alt={heroData.name}
             width={640}
             height={313}
             priority
-            className="h-auto w-full max-w-[640px]"
+            className="relative h-auto w-full max-w-[640px]"
           />
         </motion.div>
 
@@ -98,25 +114,28 @@ export default function Hero() {
           ))}
         </motion.nav>
 
-        <motion.div
+        <motion.nav
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          aria-label="Main"
+          className="grid grid-cols-2 sm:flex sm:flex-row gap-3 sm:gap-4 justify-center max-w-md sm:max-w-none mx-auto"
         >
-          <a
-            href="#booking"
-            className="bg-primary text-on-primary px-8 py-4 font-headline font-bold uppercase tracking-widest text-sm rounded-md hover:shadow-[0_0_20px_rgba(255,178,184,0.4)] transition-all duration-300"
-          >
-            Book Artist
-          </a>
-          <a
-            href="#media"
-            className="border border-outline-variant bg-surface-container-low/50 backdrop-blur-md text-white px-8 py-4 font-headline font-bold uppercase tracking-widest text-sm rounded-md hover:bg-surface-container-highest transition-all duration-300"
-          >
-            Latest Sets
-          </a>
-        </motion.div>
+          {[
+            { label: "Music", href: "#music" },
+            { label: "Gigs", href: "#gigs" },
+            { label: "Booking", href: "#booking" },
+            { label: "Bio", href: "#bio" },
+          ].map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="border border-secondary bg-surface-container-low/60 backdrop-blur-md text-white px-6 sm:px-8 py-4 font-headline font-bold uppercase tracking-widest text-sm rounded-md shadow-[0_0_15px_rgba(253,54,146,0.25)] hover:bg-secondary hover:text-on-secondary hover:shadow-[0_0_25px_rgba(253,54,146,0.55)] transition-all duration-300 text-center"
+            >
+              {item.label}
+            </a>
+          ))}
+        </motion.nav>
       </div>
 
     </section>

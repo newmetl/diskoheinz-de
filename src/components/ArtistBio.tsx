@@ -7,7 +7,7 @@ export default function ArtistBio() {
   return (
     <section
       className="py-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto"
-      id="about"
+      id="bio"
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -17,7 +17,7 @@ export default function ArtistBio() {
         className="mb-16"
       >
         <h2 className="text-4xl md:text-6xl font-headline font-bold text-white tracking-tighter uppercase mb-2">
-          Artist <span className="text-tertiary-fixed-dim">Bio</span>
+          <span className="text-tertiary-fixed-dim">Bio</span>
         </h2>
         <div className="h-1 w-24 bg-tertiary-fixed-dim" />
       </motion.div>
@@ -51,7 +51,7 @@ export default function ArtistBio() {
           <p>
             Techno and house with a slice of disco, soul, and love – that&apos;s{" "}
             <span className="text-white font-semibold">Diskoheinz</span>. As
-            founder and resident of Diskologne, he blends powerful house beats
+            founder and resident of <span className="text-white font-semibold">Diskologne</span>, he blends powerful house beats
             with shimmering disco influences, driven by a deep passion for
             music and an unstoppable urge to connect people through sound.
             Known for his smooth and engaging sets, he&apos;s a passionate
@@ -67,7 +67,7 @@ export default function ArtistBio() {
           <p>
             When he&apos;s not lighting up dancefloors in Cologne and beyond,
             Diskoheinz is also a resident with Munich&apos;s{" "}
-            <span className="text-white font-semibold">friends. community</span>
+            <span className="text-white font-semibold">friends.</span> community
             , steadily spreading his signature blend of house, disco, and
             connection further south.
           </p>

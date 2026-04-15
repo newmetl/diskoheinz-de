@@ -15,7 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "DISKOHEINZ | Techno & House with a Slice of Disco, Soul, and Love",
+  title: "Diskoheinz",
   description:
     "Official website of DISKOHEINZ – DJ, producer, and curator of techno and house with a slice of disco, soul, and love. Book now for club nights, festivals, and private events.",
   keywords: [
@@ -27,6 +27,9 @@ export const metadata: Metadata = {
     "Cologne",
     "Booking",
   ],
+  icons: {
+    icon: "/images/favicon.png",
+  },
   openGraph: {
     title: "DISKOHEINZ",
     description:

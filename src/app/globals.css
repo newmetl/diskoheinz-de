@@ -20,23 +20,23 @@
   --color-primary-fixed: #e2e2e2;
   --color-primary-fixed-dim: #c6c6c7;
 
-  /* Secondary (Neon Pink / Disco) */
-  --color-secondary: #ffb2b8;
-  --color-on-secondary: #67001d;
-  --color-secondary-container: #ff506e;
-  --color-on-secondary-container: #5b0018;
-  --color-secondary-fixed: #ffdadb;
-  --color-secondary-fixed-dim: #ffb2b8;
+  /* Accent (Disco Magenta) */
+  --color-secondary: #fd3692;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #fd3692;
+  --color-on-secondary-container: #ffffff;
+  --color-secondary-fixed: #fd3692;
+  --color-secondary-fixed-dim: #fd3692;
 
-  /* Tertiary (Cyan / Laser) */
-  --color-tertiary: #ffffff;
-  --color-on-tertiary: #00363a;
-  --color-tertiary-container: #7df4ff;
-  --color-on-tertiary-container: #006f77;
-  --color-tertiary-fixed: #7df4ff;
-  --color-tertiary-fixed-dim: #00dbe9;
-  --color-on-tertiary-fixed: #00363a;
-  --color-on-tertiary-fixed-variant: #004f55;
+  /* Tertiary alias → same accent */
+  --color-tertiary: #fd3692;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #fd3692;
+  --color-on-tertiary-container: #ffffff;
+  --color-tertiary-fixed: #fd3692;
+  --color-tertiary-fixed-dim: #fd3692;
+  --color-on-tertiary-fixed: #ffffff;
+  --color-on-tertiary-fixed-variant: #ffffff;
 
   /* On Surface */
   --color-on-surface: #e2e2e2;
@@ -81,17 +81,17 @@ body {
 }
 
 ::selection {
-  background-color: #ffb2b8;
-  color: #67001d;
+  background-color: #fd3692;
+  color: #ffffff;
 }
 
 /* Laser glow effects */
 .laser-glow-secondary {
-  box-shadow: 0 0 15px rgba(255, 178, 184, 0.3);
+  box-shadow: 0 0 15px rgba(223, 21, 114, 0.3);
 }
 
 .laser-glow-tertiary {
-  box-shadow: 0 0 15px rgba(0, 219, 233, 0.3);
+  box-shadow: 0 0 15px rgba(223, 21, 114, 0.3);
 }
 
 /* Glassmorphism utility */
