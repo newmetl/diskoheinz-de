@@ -29,7 +29,7 @@ export default function MediaSection() {
         <div className="h-1 w-24 bg-tertiary-fixed-dim" />
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-8">
         {/* YouTube Playlist */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

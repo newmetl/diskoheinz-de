@@ -62,7 +62,7 @@ export default function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, delay: 0.3 }}
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] max-w-[500px] aspect-square"
+            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[calc(50%+15px)] w-[80%] max-w-[500px] aspect-square"
           >
             <Image
               src="/images/disco.png"
@@ -79,7 +79,7 @@ export default function Hero() {
             width={640}
             height={313}
             priority
-            className="relative h-auto w-full max-w-[640px]"
+            className="relative h-auto w-full max-w-[640px] translate-y-[5px]"
           />
         </motion.div>
 

@@ -14,8 +14,16 @@ const inter = Inter({
   weight: ["300", "400", "500", "600"],
 });
 
+const siteUrl = "https://diskoheinz.de";
+const ogDescription =
+  "Techno and house with a slice of disco, soul, and love. Book DISKOHEINZ for club nights, festivals, and private events.";
+
 export const metadata: Metadata = {
-  title: "Diskoheinz",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "DISKOHEINZ – DJ, Producer & Booking",
+    template: "%s | DISKOHEINZ",
+  },
   description:
     "Official website of DISKOHEINZ – DJ, producer, and curator of techno and house with a slice of disco, soul, and love. Book now for club nights, festivals, and private events.",
   keywords: [
@@ -25,17 +33,40 @@ export const metadata: Metadata = {
     "House",
     "Disco",
     "Cologne",
+    "Köln",
     "Booking",
   ],
+  authors: [{ name: "DISKOHEINZ" }],
+  creator: "DISKOHEINZ",
+  publisher: "DISKOHEINZ",
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: "/images/favicon.png",
   },
   openGraph: {
-    title: "DISKOHEINZ",
-    description:
-      "Techno and house with a slice of disco, soul, and love.",
+    title: "DISKOHEINZ – DJ, Producer & Booking",
+    description: ogDescription,
+    url: siteUrl,
+    siteName: "DISKOHEINZ",
     type: "website",
     locale: "de_DE",
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "DISKOHEINZ – Techno and house with a slice of disco, soul, and love.",
+        type: "image/jpeg",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DISKOHEINZ – DJ, Producer & Booking",
+    description: ogDescription,
+    images: ["/images/og-image.jpg"],
   },
 };
 
