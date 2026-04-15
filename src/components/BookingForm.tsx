@@ -45,7 +45,7 @@ export default function BookingForm() {
         </h2>
         <p className="text-on-surface-variant max-w-xl mx-auto">
           For availability, festival inquiries, and club bookings. We&apos;ll get
-          back to you within 48 hours.
+          back to you asap.
         </p>
       </motion.div>
 

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -17,15 +17,23 @@ const inter = Inter({
 const siteUrl = "https://diskoheinz.de";
 const ogDescription =
   "Techno and house with a slice of disco, soul, and love. Book DISKOHEINZ for club nights, festivals, and private events.";
+// ~155 chars — fits Google's SERP snippet length.
+const metaDescription =
+  "DISKOHEINZ – DJ, producer & curator. Techno and house with a slice of disco, soul, and love. Book now for club nights, festivals & private events.";
+
+export const viewport: Viewport = {
+  themeColor: "#121212",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Diskoheinz.de",
-    template: "Diskoheinz.de",
+    default: "DISKOHEINZ – DJ, Producer & Booking",
+    template: "%s | DISKOHEINZ",
   },
-  description:
-    "Official website of DISKOHEINZ – DJ, producer, and curator of techno and house with a slice of disco, soul, and love. Book now for club nights, festivals, and private events.",
+  description: metaDescription,
   keywords: [
     "DISKOHEINZ",
     "DJ",
@@ -41,9 +49,6 @@ export const metadata: Metadata = {
   publisher: "DISKOHEINZ",
   alternates: {
     canonical: "/",
-  },
-  icons: {
-    icon: "/images/favicon.png",
   },
   openGraph: {
     title: "DISKOHEINZ – DJ, Producer & Booking",
@@ -70,6 +75,22 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MusicGroup",
+  name: "DISKOHEINZ",
+  alternateName: "Diskoheinz",
+  url: siteUrl,
+  image: `${siteUrl}/images/og-image.jpg`,
+  logo: `${siteUrl}/images/logo_1280x627.png`,
+  description: ogDescription,
+  genre: ["Techno", "House", "Disco"],
+  location: {
+    "@type": "Place",
+    name: "Cologne, Germany",
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -83,6 +104,10 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-surface text-on-surface font-body antialiased">
         {children}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </body>
     </html>
   );

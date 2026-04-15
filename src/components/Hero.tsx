@@ -73,14 +73,19 @@ export default function Hero() {
               className="w-full h-full object-contain opacity-70 drop-shadow-[0_0_40px_rgba(253,54,146,0.35)]"
             />
           </motion.div>
-          <Image
-            src="/images/logo_1280x627.png"
-            alt={heroData.name}
-            width={640}
-            height={313}
-            priority
-            className="relative h-auto w-full max-w-[640px] translate-y-[5px]"
-          />
+          <h1 className="relative m-0 w-full max-w-[640px] translate-y-[5px]">
+            <span className="sr-only">
+              {heroData.name} – DJ, Producer & Booking
+            </span>
+            <Image
+              src="/images/logo_1280x627.png"
+              alt={heroData.name}
+              width={640}
+              height={313}
+              priority
+              className="h-auto w-full"
+            />
+          </h1>
         </motion.div>
 
         <motion.p
