@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Play, ExternalLink } from "lucide-react";
 import ConsentEmbed from "./ConsentEmbed";
+import { SoundCloudPreview, YouTubePreview } from "./MediaPreviews";
 import mediaData from "@/data/media.json";
 import type { MediaEmbed } from "@/data/types";
 
@@ -56,7 +57,14 @@ export default function MediaSection() {
             </a>
           </div>
           <div className="px-6 pb-6 flex-1">
-            <ConsentEmbed platform="YouTube">
+            <ConsentEmbed
+              platform="YouTube"
+              preview={
+                youtube?.thumbnailVideoId ? (
+                  <YouTubePreview videoId={youtube.thumbnailVideoId} />
+                ) : undefined
+              }
+            >
               <div className="aspect-video rounded-md overflow-hidden">
                 {youtube && (
                   <iframe
@@ -98,7 +106,10 @@ export default function MediaSection() {
             </a>
           </div>
           <div className="px-6 pb-6 flex-1">
-            <ConsentEmbed platform="SoundCloud">
+            <ConsentEmbed
+              platform="SoundCloud"
+              preview={<SoundCloudPreview />}
+            >
               <div className="rounded-md overflow-hidden bg-surface-container-low">
                 {soundcloud && (
                   <iframe

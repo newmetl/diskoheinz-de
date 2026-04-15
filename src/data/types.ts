@@ -19,6 +19,7 @@ export interface MediaEmbed {
   title?: string;
   variant?: string;
   height?: number;
+  thumbnailVideoId?: string;
 }
 
 export interface Gig {

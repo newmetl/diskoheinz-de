@@ -6,16 +6,37 @@ import { ShieldAlert } from "lucide-react";
 interface ConsentEmbedProps {
   platform: string;
   children: React.ReactNode;
+  preview?: React.ReactNode;
 }
 
 export default function ConsentEmbed({
   platform,
   children,
+  preview,
 }: ConsentEmbedProps) {
   const [consented, setConsented] = useState(false);
 
   if (consented) {
     return <>{children}</>;
+  }
+
+  if (preview) {
+    return (
+      <button
+        type="button"
+        onClick={() => setConsented(true)}
+        aria-label={`${platform}-Inhalte laden`}
+        className="group relative block w-full overflow-hidden rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+      >
+        {preview}
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent px-4 pt-10 pb-3">
+          <p className="text-xs text-white/90 text-center">
+            Klick lädt <span className="font-medium">{platform}</span> · Daten
+            werden an {platform} übertragen
+          </p>
+        </div>
+      </button>
+    );
   }
 
   return (

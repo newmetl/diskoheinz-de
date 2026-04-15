@@ -2,13 +2,14 @@
   {
     "id": "yt-playlist",
     "type": "youtube",
-    "url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLu_PhkI5ea5sS2SCakYONpxvsPmWJH1vq&rel=0&modestbranding=1",
-    "title": "YouTube Recordings"
+    "url": "https://www.youtube-nocookie.com/embed/videoseries?list=PLu_PhkI5ea5sS2SCakYONpxvsPmWJH1vq&rel=0&modestbranding=1&autoplay=1",
+    "title": "YouTube Recordings",
+    "thumbnailVideoId": "wXkW4jFfTss"
   },
   {
     "id": "sc-tracks",
     "type": "soundcloud",
-    "url": "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/diskoheinz&color=%2300dbe9&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false",
+    "url": "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/diskoheinz&color=%2300dbe9&auto_play=true&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false",
     "title": "Soundcloud Sets",
     "height": 450
   }
