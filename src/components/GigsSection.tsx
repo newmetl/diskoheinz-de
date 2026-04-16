@@ -76,7 +76,7 @@ function GigRow({ gig, variant }: { gig: Gig; variant: "upcoming" | "past" }) {
 
   return (
     <div
-      className={`group flex flex-col md:flex-row md:items-center justify-between p-6 hover:bg-surface-container-high transition-all border-b border-white/5 ${
+      className={`group flex flex-col md:flex-row md:items-center justify-between px-3 py-4 md:p-6 hover:bg-surface-container-high transition-all border-b border-white/5 ${
         isPast ? "opacity-50 hover:opacity-80" : ""
       } ${isCancelled ? "opacity-60" : ""} ${
         gig.is_headliner && !isPast
@@ -84,14 +84,14 @@ function GigRow({ gig, variant }: { gig: Gig; variant: "upcoming" | "past" }) {
           : ""
       }`}
     >
-      <div className="flex items-center gap-6 mb-4 md:mb-0 min-w-0">
-        <div className="relative w-16 h-16 shrink-0 overflow-hidden bg-surface-container-highest">
+      <div className="flex items-start gap-3 md:items-center md:gap-6 mb-4 md:mb-0 min-w-0">
+        <div className="relative w-12 h-12 md:w-16 md:h-16 shrink-0 overflow-hidden bg-surface-container-highest">
           {gig.flyer_url ? (
             <Image
               src={gig.flyer_url}
               alt={`${gig.title} flyer`}
               fill
-              sizes="64px"
+              sizes="(max-width: 768px) 48px, 64px"
               unoptimized={gig.flyer_url.startsWith("/uploads/")}
               className={`object-cover ${isCancelled ? "grayscale" : ""}`}
             />
@@ -106,9 +106,9 @@ function GigRow({ gig, variant }: { gig: Gig; variant: "upcoming" | "past" }) {
           )}
         </div>
 
-        <div className="text-center w-14 shrink-0">
+        <div className="text-center w-10 md:w-14 shrink-0">
           <div
-            className={`text-2xl font-headline font-black text-white ${
+            className={`text-xl md:text-2xl font-headline font-black text-white ${
               isCancelled ? "line-through decoration-error/60" : ""
             }`}
           >
@@ -131,7 +131,7 @@ function GigRow({ gig, variant }: { gig: Gig; variant: "upcoming" | "past" }) {
               <Lock size={12} className="text-on-surface-variant shrink-0" />
             )}
             <h4
-              className={`text-xl font-headline font-bold text-white group-hover:text-tertiary-fixed-dim transition-colors uppercase truncate ${
+              className={`text-base md:text-xl font-headline font-bold text-white group-hover:text-tertiary-fixed-dim transition-colors uppercase ${
                 isCancelled ? "line-through decoration-error/60" : ""
               }`}
             >
@@ -139,7 +139,7 @@ function GigRow({ gig, variant }: { gig: Gig; variant: "upcoming" | "past" }) {
             </h4>
           </div>
 
-          <p className="text-sm text-on-surface-variant mt-0.5">
+          <p className="text-xs md:text-sm text-on-surface-variant mt-0.5">
             {displayVenue && <>{displayVenue} &middot; </>}
             {gig.city}
             {gig.country && gig.country !== "DE" && (
