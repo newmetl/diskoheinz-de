@@ -20,5 +20,5 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             cd /srv
-            docker compose build diskoheinz-de
-            docker compose up -d diskoheinz-de
+            docker compose --env-file /srv/.env.diskoheinz-de build diskoheinz-de
+            docker compose up -d --force-recreate diskoheinz-de
