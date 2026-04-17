@@ -19,6 +19,22 @@ export default async function AdminLayout({
           Diskoheinz <span className="text-secondary">Admin</span>
         </Link>
         <nav className="flex items-center gap-4 text-xs uppercase tracking-widest">
+          {authed && (
+            <>
+              <Link
+                href="/admin"
+                className="text-on-surface-variant hover:text-white transition-colors"
+              >
+                Gigs
+              </Link>
+              <Link
+                href="/admin/media"
+                className="text-on-surface-variant hover:text-white transition-colors"
+              >
+                Media
+              </Link>
+            </>
+          )}
           <Link
             href="/"
             className="text-on-surface-variant hover:text-white transition-colors"

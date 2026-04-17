@@ -29,14 +29,12 @@ export interface Gig {
   venue: string;
   city: string;
   country?: string;
-  starts_at: string; // ISO datetime with timezone offset
-  ends_at?: string; // ISO datetime with timezone offset
+  starts_at: string; // "YYYY-MM-DD" event date
 
   // Display
   stage?: string;
   lineup?: string[];
   description?: string;
-  flyer_url?: string;
   event_url?: string;
   ticket_url?: string;
 

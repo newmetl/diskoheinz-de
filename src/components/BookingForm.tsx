@@ -21,10 +21,10 @@ export default function BookingForm() {
             className="text-tertiary-fixed-dim mx-auto mb-6"
           />
           <h3 className="text-3xl font-headline font-bold text-white mb-4">
-            Danke für deine Anfrage!
+            Thanks for your inquiry!
           </h3>
           <p className="text-on-surface-variant">
-            Diskoheinz meldet sich bei dir.
+            Diskoheinz will get back to you.
           </p>
         </motion.div>
       </section>
@@ -66,13 +66,13 @@ export default function BookingForm() {
           <div className="space-y-6">
             <div>
               <label className="block text-[10px] font-bold uppercase tracking-widest text-secondary mb-2">
-                Name / Organisation
+                Name / Organization
               </label>
               <input
                 type="text"
                 name="name"
                 required
-                placeholder="Name oder Organisation"
+                placeholder="Name or organization"
                 className="w-full bg-surface-container-lowest border-none text-white focus:ring-1 focus:ring-secondary rounded-md p-4 placeholder:text-surface-container-highest"
               />
               <ValidationError
@@ -84,13 +84,13 @@ export default function BookingForm() {
 
             <div>
               <label className="block text-[10px] font-bold uppercase tracking-widest text-secondary mb-2">
-                E-Mail
+                Email
               </label>
               <input
                 type="email"
                 name="email"
                 required
-                placeholder="deine@email.de"
+                placeholder="your@email.com"
                 className="w-full bg-surface-container-lowest border-none text-white focus:ring-1 focus:ring-secondary rounded-md p-4 placeholder:text-surface-container-highest"
               />
               <ValidationError
@@ -106,9 +106,14 @@ export default function BookingForm() {
                   Event Date
                 </label>
                 <input
-                  type="date"
+                  type="text"
                   name="event_date"
-                  className="w-full bg-surface-container-lowest border-none text-white focus:ring-1 focus:ring-secondary rounded-md p-4"
+                  placeholder="dd/mm/yyyy"
+                  onFocus={(e) => (e.currentTarget.type = "date")}
+                  onBlur={(e) => {
+                    if (!e.currentTarget.value) e.currentTarget.type = "text";
+                  }}
+                  className="w-full bg-surface-container-lowest border-none text-white focus:ring-1 focus:ring-secondary rounded-md p-4 placeholder:text-surface-container-highest"
                 />
               </div>
               <div>
@@ -149,13 +154,13 @@ export default function BookingForm() {
                 className="w-full bg-surface-container-lowest border-none text-white focus:ring-1 focus:ring-secondary rounded-md p-4"
               >
                 <option value="" disabled>
-                  Art des Events
+                  Type of event
                 </option>
                 <option value="club">Club Night</option>
                 <option value="festival">Festival</option>
                 <option value="private">Private Event</option>
                 <option value="corporate">Corporate Event</option>
-                <option value="other">Sonstiges</option>
+                <option value="other">Other</option>
               </select>
             </div>
 
@@ -188,7 +193,7 @@ export default function BookingForm() {
               disabled={state.submitting}
               className="w-full bg-tertiary-fixed-dim text-on-tertiary-fixed font-headline font-black uppercase tracking-[0.2em] py-5 rounded-md hover:shadow-[0_0_20px_rgba(223,21,114,0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {state.submitting ? "Wird gesendet..." : "Send Inquiry"}
+              {state.submitting ? "Sending..." : "Send Inquiry"}
             </button>
           </div>
         </form>

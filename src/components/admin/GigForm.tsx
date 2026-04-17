@@ -1,10 +1,8 @@
 "use client";
 
 import { useActionState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import type { Gig } from "@/data/types";
-import { splitIsoLocal } from "@/lib/gig-time";
 
 type ActionFn = (
   prev: { error?: string } | undefined,
@@ -24,8 +22,7 @@ export default function GigForm({
     error: undefined as string | undefined,
   });
 
-  const starts = splitIsoLocal(gig?.starts_at);
-  const ends = splitIsoLocal(gig?.ends_at);
+  const startDate = gig?.starts_at ? gig.starts_at.slice(0, 10) : "";
 
   const input =
     "w-full px-4 py-2 bg-surface-container border border-outline-variant text-white focus:outline-none focus:border-secondary";
@@ -109,50 +106,14 @@ export default function GigForm({
         </div>
         <div>
           <label htmlFor="starts_at_date" className={label}>
-            Start date *
+            Event date *
           </label>
           <input
             id="starts_at_date"
             name="starts_at_date"
             type="date"
             required
-            defaultValue={starts.date}
-            className={input}
-          />
-        </div>
-        <div>
-          <label htmlFor="starts_at_time" className={label}>
-            Start time
-          </label>
-          <input
-            id="starts_at_time"
-            name="starts_at_time"
-            type="time"
-            defaultValue={starts.time}
-            className={input}
-          />
-        </div>
-        <div>
-          <label htmlFor="ends_at_date" className={label}>
-            End date
-          </label>
-          <input
-            id="ends_at_date"
-            name="ends_at_date"
-            type="date"
-            defaultValue={ends.date}
-            className={input}
-          />
-        </div>
-        <div>
-          <label htmlFor="ends_at_time" className={label}>
-            End time
-          </label>
-          <input
-            id="ends_at_time"
-            name="ends_at_time"
-            type="time"
-            defaultValue={ends.time}
+            defaultValue={startDate}
             className={input}
           />
         </div>
@@ -208,48 +169,6 @@ export default function GigForm({
             className={input}
           />
         </div>
-      </div>
-
-      <div>
-        <label className={label}>Flyer</label>
-        {gig?.flyer_url && (
-          <div className="flex items-center gap-4 mb-3">
-            <div className="relative w-20 h-20 bg-surface-container-highest overflow-hidden">
-              <Image
-                src={gig.flyer_url}
-                alt=""
-                fill
-                sizes="80px"
-                className="object-cover"
-                unoptimized={gig.flyer_url.startsWith("/uploads/")}
-              />
-            </div>
-            <label className="flex items-center gap-2 text-xs text-on-surface-variant">
-              <input type="checkbox" name="remove_flyer" />
-              Remove current flyer
-            </label>
-          </div>
-        )}
-        <input
-          type="file"
-          name="flyer_file"
-          accept="image/*"
-          className="text-sm text-on-surface-variant"
-        />
-        <p className="text-xs text-on-surface-variant/70 mt-2">
-          Upload wird automatisch auf 800×800 WebP konvertiert. Alternativ eine externe URL:
-        </p>
-        <input
-          name="flyer_url"
-          type="url"
-          placeholder="https://…"
-          defaultValue={
-            gig?.flyer_url && !gig.flyer_url.startsWith("/uploads/")
-              ? gig.flyer_url
-              : ""
-          }
-          className={`${input} mt-2`}
-        />
       </div>
 
       <div className="flex flex-wrap gap-6">

@@ -8,7 +8,6 @@ const DATA_DIR = process.env.DATA_DIR || path.join(process.cwd(), "data");
 const DB_PATH = path.join(DATA_DIR, "diskoheinz.sqlite");
 
 fs.mkdirSync(DATA_DIR, { recursive: true });
-fs.mkdirSync(path.join(DATA_DIR, "uploads"), { recursive: true });
 
 let _db: Database.Database | null = null;
 
@@ -24,7 +23,6 @@ function getDb(): Database.Database {
       city         TEXT NOT NULL DEFAULT '',
       country      TEXT,
       starts_at    TEXT NOT NULL,
-      ends_at      TEXT,
       stage        TEXT,
       lineup       TEXT,      -- JSON array
       description  TEXT,
@@ -38,6 +36,12 @@ function getDb(): Database.Database {
       updated_at   TEXT NOT NULL DEFAULT (datetime('now'))
     );
     CREATE INDEX IF NOT EXISTS idx_gigs_starts_at ON gigs(starts_at);
+
+    CREATE TABLE IF NOT EXISTS settings (
+      key        TEXT PRIMARY KEY,
+      value      TEXT,
+      updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
   `);
 
   const { count } = db.prepare("SELECT COUNT(*) AS count FROM gigs").get() as {
@@ -45,11 +49,11 @@ function getDb(): Database.Database {
   };
   if (count === 0) {
     const insert = db.prepare(`
-      INSERT INTO gigs (id, title, venue, city, country, starts_at, ends_at,
-                        stage, lineup, description, flyer_url, event_url, ticket_url,
+      INSERT INTO gigs (id, title, venue, city, country, starts_at,
+                        stage, lineup, description, event_url, ticket_url,
                         status, is_headliner, is_private)
-      VALUES (@id, @title, @venue, @city, @country, @starts_at, @ends_at,
-              @stage, @lineup, @description, @flyer_url, @event_url, @ticket_url,
+      VALUES (@id, @title, @venue, @city, @country, @starts_at,
+              @stage, @lineup, @description, @event_url, @ticket_url,
               @status, @is_headliner, @is_private)
     `);
     const seed = db.transaction((gigs: Gig[]) => {
@@ -60,12 +64,10 @@ function getDb(): Database.Database {
           venue: g.venue ?? "",
           city: g.city ?? "",
           country: g.country ?? null,
-          starts_at: g.starts_at,
-          ends_at: g.ends_at ?? null,
+          starts_at: g.starts_at.slice(0, 10),
           stage: g.stage ?? null,
           lineup: g.lineup ? JSON.stringify(g.lineup) : null,
           description: g.description ?? null,
-          flyer_url: g.flyer_url ?? null,
           event_url: g.event_url ?? null,
           ticket_url: g.ticket_url ?? null,
           status: g.status,
@@ -88,11 +90,9 @@ type Row = {
   city: string;
   country: string | null;
   starts_at: string;
-  ends_at: string | null;
   stage: string | null;
   lineup: string | null;
   description: string | null;
-  flyer_url: string | null;
   event_url: string | null;
   ticket_url: string | null;
   status: Gig["status"];
@@ -107,12 +107,10 @@ function rowToGig(r: Row): Gig {
     venue: r.venue,
     city: r.city,
     country: r.country ?? undefined,
-    starts_at: r.starts_at,
-    ends_at: r.ends_at ?? undefined,
+    starts_at: r.starts_at.slice(0, 10),
     stage: r.stage ?? undefined,
     lineup: r.lineup ? (JSON.parse(r.lineup) as string[]) : undefined,
     description: r.description ?? undefined,
-    flyer_url: r.flyer_url ?? undefined,
     event_url: r.event_url ?? undefined,
     ticket_url: r.ticket_url ?? undefined,
     status: r.status,
@@ -141,11 +139,11 @@ export function createGig(input: GigInput): Gig {
   const id = crypto.randomUUID();
   getDb()
     .prepare(
-      `INSERT INTO gigs (id, title, venue, city, country, starts_at, ends_at,
-        stage, lineup, description, flyer_url, event_url, ticket_url,
+      `INSERT INTO gigs (id, title, venue, city, country, starts_at,
+        stage, lineup, description, event_url, ticket_url,
         status, is_headliner, is_private)
-       VALUES (@id, @title, @venue, @city, @country, @starts_at, @ends_at,
-        @stage, @lineup, @description, @flyer_url, @event_url, @ticket_url,
+       VALUES (@id, @title, @venue, @city, @country, @starts_at,
+        @stage, @lineup, @description, @event_url, @ticket_url,
         @status, @is_headliner, @is_private)`,
     )
     .run({
@@ -155,13 +153,11 @@ export function createGig(input: GigInput): Gig {
       city: input.city ?? "",
       country: input.country ?? null,
       starts_at: input.starts_at,
-      ends_at: input.ends_at ?? null,
       stage: input.stage ?? null,
       lineup: input.lineup && input.lineup.length
         ? JSON.stringify(input.lineup)
         : null,
       description: input.description ?? null,
-      flyer_url: input.flyer_url ?? null,
       event_url: input.event_url ?? null,
       ticket_url: input.ticket_url ?? null,
       status: input.status,
@@ -178,8 +174,8 @@ export function updateGig(id: string, input: GigInput): Gig | null {
     .prepare(
       `UPDATE gigs SET
         title=@title, venue=@venue, city=@city, country=@country,
-        starts_at=@starts_at, ends_at=@ends_at, stage=@stage, lineup=@lineup,
-        description=@description, flyer_url=@flyer_url, event_url=@event_url,
+        starts_at=@starts_at, stage=@stage, lineup=@lineup,
+        description=@description, event_url=@event_url,
         ticket_url=@ticket_url, status=@status, is_headliner=@is_headliner,
         is_private=@is_private, updated_at=datetime('now')
        WHERE id=@id`,
@@ -191,13 +187,11 @@ export function updateGig(id: string, input: GigInput): Gig | null {
       city: input.city ?? "",
       country: input.country ?? null,
       starts_at: input.starts_at,
-      ends_at: input.ends_at ?? null,
       stage: input.stage ?? null,
       lineup: input.lineup && input.lineup.length
         ? JSON.stringify(input.lineup)
         : null,
       description: input.description ?? null,
-      flyer_url: input.flyer_url ?? null,
       event_url: input.event_url ?? null,
       ticket_url: input.ticket_url ?? null,
       status: input.status,
@@ -212,4 +206,24 @@ export function deleteGig(id: string): Gig | null {
   if (!existing) return null;
   getDb().prepare("DELETE FROM gigs WHERE id = ?").run(id);
   return existing;
+}
+
+export function getSetting(key: string): string | null {
+  const row = getDb()
+    .prepare("SELECT value FROM settings WHERE key = ?")
+    .get(key) as { value: string | null } | undefined;
+  return row?.value ?? null;
+}
+
+export function setSetting(key: string, value: string | null): void {
+  if (value === null) {
+    getDb().prepare("DELETE FROM settings WHERE key = ?").run(key);
+    return;
+  }
+  getDb()
+    .prepare(
+      `INSERT INTO settings (key, value, updated_at) VALUES (?, ?, datetime('now'))
+       ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = datetime('now')`,
+    )
+    .run(key, value);
 }

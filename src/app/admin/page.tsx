@@ -3,25 +3,15 @@ import Image from "next/image";
 import { listGigs } from "@/lib/db";
 import { deleteGigAction } from "./actions";
 import { DeleteGigButton } from "@/components/admin/DeleteGigButton";
-import { hasTime, isPastGig } from "@/lib/gig-time";
+import { isPastGig } from "@/lib/gig-time";
 import type { Gig } from "@/data/types";
 
-function formatDate(iso: string) {
-  if (!hasTime(iso)) {
-    const d = new Date(`${iso}T12:00:00`);
-    return `${d.toLocaleDateString("de-DE", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    })} · time TBD`;
-  }
-  const d = new Date(iso);
-  return d.toLocaleString("de-DE", {
+function formatDate(date: string) {
+  const d = new Date(`${date.slice(0, 10)}T12:00:00`);
+  return d.toLocaleDateString("de-DE", {
     day: "2-digit",
     month: "short",
     year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
   });
 }
 
@@ -33,17 +23,15 @@ function GigRow({ gig, isPast }: { gig: Gig; isPast: boolean }) {
         isPast ? "opacity-60" : ""
       }`}
     >
-      <div className="relative w-12 h-12 shrink-0 bg-surface-container-highest overflow-hidden">
-        {gig.flyer_url && (
-          <Image
-            src={gig.flyer_url}
-            alt=""
-            fill
-            sizes="48px"
-            className="object-cover"
-            unoptimized={gig.flyer_url.startsWith("/uploads/")}
-          />
-        )}
+      <div className="relative w-12 h-12 shrink-0 flex items-center justify-center">
+        <Image
+          src="/images/disco-sm.png"
+          alt=""
+          width={48}
+          height={48}
+          aria-hidden="true"
+          className="w-full h-full object-contain opacity-80"
+        />
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
@@ -78,10 +66,10 @@ function GigRow({ gig, isPast }: { gig: Gig; isPast: boolean }) {
 export default async function AdminHome() {
   const gigs = listGigs();
   const upcoming = gigs
-    .filter((g) => !isPastGig(g.starts_at, g.ends_at))
+    .filter((g) => !isPastGig(g.starts_at))
     .sort((a, b) => a.starts_at.localeCompare(b.starts_at));
   const past = gigs
-    .filter((g) => isPastGig(g.starts_at, g.ends_at))
+    .filter((g) => isPastGig(g.starts_at))
     .sort((a, b) => b.starts_at.localeCompare(a.starts_at));
 
   return (

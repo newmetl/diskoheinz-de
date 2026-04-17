@@ -7,11 +7,12 @@ import {
   createGig as dbCreate,
   deleteGig as dbDelete,
   getGig,
+  setSetting,
   updateGig as dbUpdate,
   type GigInput,
 } from "@/lib/db";
-import { deleteFlyerIfOwned, saveFlyer } from "@/lib/uploads";
-import { combineDateTime } from "@/lib/gig-time";
+import { SETTING_YT_THUMBNAIL } from "@/lib/settings";
+import { extractYoutubeVideoId } from "@/lib/youtube";
 import type { Gig } from "@/data/types";
 
 async function requireAdmin() {
@@ -59,23 +60,14 @@ function optStr(v: FormDataEntryValue | null): string | undefined {
 
 function parseFormToGig(fd: FormData): { input?: GigInput; error?: string } {
   const title = str(fd.get("title"));
-  const starts_date = str(fd.get("starts_at_date"));
-  const starts_time = str(fd.get("starts_at_time"));
-  const ends_date = str(fd.get("ends_at_date"));
-  const ends_time = str(fd.get("ends_at_time"));
+  const starts_at = str(fd.get("starts_at_date"));
   const status = str(fd.get("status")) as Gig["status"];
 
   if (!title) return { error: "Titel ist Pflicht." };
-  if (!starts_date) return { error: "Startdatum ist Pflicht." };
-  const starts_at = combineDateTime(starts_date, starts_time);
-  if (!starts_at) return { error: "Startdatum/-zeit ist ungültig." };
-  if (!ends_date && ends_time) {
-    return { error: "Endzeit ohne Enddatum ist nicht zulässig." };
+  if (!starts_at) return { error: "Eventdatum ist Pflicht." };
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(starts_at)) {
+    return { error: "Eventdatum ist ungültig." };
   }
-  const ends_at = ends_date
-    ? combineDateTime(ends_date, ends_time)
-    : undefined;
-  if (ends_date && !ends_at) return { error: "Enddatum/-zeit ist ungültig." };
   if (!["confirmed", "pending", "sold_out", "cancelled"].includes(status)) {
     return { error: "Ungültiger Status." };
   }
@@ -95,11 +87,9 @@ function parseFormToGig(fd: FormData): { input?: GigInput; error?: string } {
       city: str(fd.get("city")),
       country: optStr(fd.get("country")),
       starts_at,
-      ends_at,
       stage: optStr(fd.get("stage")),
       lineup,
       description: optStr(fd.get("description")),
-      flyer_url: optStr(fd.get("flyer_url")),
       event_url: optStr(fd.get("event_url")),
       ticket_url: optStr(fd.get("ticket_url")),
       status,
@@ -117,16 +107,6 @@ export async function createGigAction(
 
   const parsed = parseFormToGig(formData);
   if (parsed.error || !parsed.input) return { error: parsed.error };
-
-  // Optional flyer upload
-  const file = formData.get("flyer_file");
-  if (file instanceof File && file.size > 0) {
-    try {
-      parsed.input.flyer_url = await saveFlyer(file);
-    } catch (e) {
-      return { error: e instanceof Error ? e.message : "Upload fehlgeschlagen." };
-    }
-  }
 
   dbCreate(parsed.input);
   revalidatePath("/");
@@ -147,32 +127,43 @@ export async function updateGigAction(
   const parsed = parseFormToGig(formData);
   if (parsed.error || !parsed.input) return { error: parsed.error };
 
-  const file = formData.get("flyer_file");
-  if (file instanceof File && file.size > 0) {
-    try {
-      const newUrl = await saveFlyer(file);
-      await deleteFlyerIfOwned(existing.flyer_url);
-      parsed.input.flyer_url = newUrl;
-    } catch (e) {
-      return { error: e instanceof Error ? e.message : "Upload fehlgeschlagen." };
-    }
-  } else if (formData.get("remove_flyer") === "on") {
-    await deleteFlyerIfOwned(existing.flyer_url);
-    parsed.input.flyer_url = undefined;
-  }
-
   dbUpdate(id, parsed.input);
   revalidatePath("/");
   revalidatePath("/admin");
   redirect("/admin");
 }
 
+export async function updateYoutubeThumbnailAction(
+  _prev: { error?: string; ok?: boolean } | undefined,
+  formData: FormData,
+): Promise<{ error?: string; ok?: boolean }> {
+  await requireAdmin();
+
+  const raw = str(formData.get("youtube_thumbnail_input"));
+  if (!raw) {
+    setSetting(SETTING_YT_THUMBNAIL, null);
+    revalidatePath("/");
+    revalidatePath("/admin/media");
+    return { ok: true };
+  }
+
+  const videoId = extractYoutubeVideoId(raw);
+  if (!videoId) {
+    return {
+      error:
+        "Ungültige Video-ID oder URL. Erwartet wird eine 11-stellige Video-ID oder eine YouTube-Link.",
+    };
+  }
+
+  setSetting(SETTING_YT_THUMBNAIL, videoId);
+  revalidatePath("/");
+  revalidatePath("/admin/media");
+  return { ok: true };
+}
+
 export async function deleteGigAction(id: string) {
   await requireAdmin();
-  const removed = dbDelete(id);
-  if (removed) {
-    await deleteFlyerIfOwned(removed.flyer_url);
-  }
+  dbDelete(id);
   revalidatePath("/");
   revalidatePath("/admin");
 }

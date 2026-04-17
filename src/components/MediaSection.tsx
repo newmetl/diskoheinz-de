@@ -11,7 +11,13 @@ const media = mediaData as MediaEmbed[];
 const youtube = media.find((m) => m.type === "youtube");
 const soundcloud = media.find((m) => m.type === "soundcloud");
 
-export default function MediaSection() {
+export default function MediaSection({
+  youtubeThumbnailVideoId,
+}: {
+  youtubeThumbnailVideoId?: string;
+}) {
+  const thumbnailVideoId =
+    youtubeThumbnailVideoId ?? youtube?.thumbnailVideoId;
   return (
     <section
       className="py-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto"
@@ -60,8 +66,8 @@ export default function MediaSection() {
             <ConsentEmbed
               platform="YouTube"
               preview={
-                youtube?.thumbnailVideoId ? (
-                  <YouTubePreview videoId={youtube.thumbnailVideoId} />
+                thumbnailVideoId ? (
+                  <YouTubePreview videoId={thumbnailVideoId} />
                 ) : undefined
               }
             >

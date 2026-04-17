@@ -3,35 +3,16 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ExternalLink, ChevronDown, Lock, Star, Disc3 } from "lucide-react";
+import { ExternalLink, ChevronDown, Lock, Star } from "lucide-react";
 import type { Gig } from "@/data/types";
-import { hasTime, isPastGig } from "@/lib/gig-time";
+import { isPastGig } from "@/lib/gig-time";
 
-function formatDateParts(iso: string) {
-  // Treat date-only values as local calendar dates to avoid UTC-shift surprises.
-  const date = hasTime(iso) ? new Date(iso) : new Date(`${iso}T12:00:00`);
-  const day = date.getDate().toString().padStart(2, "0");
-  const month = date
-    .toLocaleString("en", { month: "short" })
-    .toUpperCase();
-  const year = date.getFullYear().toString();
+function formatDateParts(date: string) {
+  const d = new Date(`${date.slice(0, 10)}T12:00:00`);
+  const day = d.getDate().toString().padStart(2, "0");
+  const month = d.toLocaleString("en", { month: "short" }).toUpperCase();
+  const year = d.getFullYear().toString();
   return { day, month, year };
-}
-
-function formatTimeRange(startsAt: string, endsAt?: string): string | null {
-  if (!hasTime(startsAt)) return null;
-  const start = new Date(startsAt);
-  const startStr = start.toLocaleTimeString("de-DE", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-  if (!endsAt || !hasTime(endsAt)) return startStr;
-  const end = new Date(endsAt);
-  const endStr = end.toLocaleTimeString("de-DE", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-  return `${startStr}–${endStr}`;
 }
 
 function StatusBadge({ status }: { status: Gig["status"] }) {
@@ -85,25 +66,17 @@ function GigRow({ gig, variant }: { gig: Gig; variant: "upcoming" | "past" }) {
       }`}
     >
       <div className="flex items-start gap-3 md:items-center md:gap-6 mb-4 md:mb-0 min-w-0">
-        <div className="relative w-12 h-12 md:w-16 md:h-16 shrink-0 overflow-hidden bg-surface-container-highest">
-          {gig.flyer_url ? (
-            <Image
-              src={gig.flyer_url}
-              alt={`${gig.title} flyer`}
-              fill
-              sizes="(max-width: 768px) 48px, 64px"
-              unoptimized={gig.flyer_url.startsWith("/uploads/")}
-              className={`object-cover ${isCancelled ? "grayscale" : ""}`}
-            />
-          ) : (
-            <div className="flex items-center justify-center w-full h-full">
-              <Disc3
-                size={28}
-                className="text-on-surface-variant/30"
-                strokeWidth={1.5}
-              />
-            </div>
-          )}
+        <div className="relative w-12 h-12 md:w-16 md:h-16 shrink-0 flex items-center justify-center">
+          <Image
+            src="/images/disco-sm.png"
+            alt=""
+            width={64}
+            height={64}
+            aria-hidden="true"
+            className={`w-full h-full object-contain opacity-80 ${
+              isCancelled ? "grayscale" : ""
+            }`}
+          />
         </div>
 
         <div className="text-center w-10 md:w-14 shrink-0">
@@ -162,24 +135,13 @@ function GigRow({ gig, variant }: { gig: Gig; variant: "upcoming" | "past" }) {
       </div>
 
       <div className="flex items-center justify-between md:justify-end gap-6 shrink-0">
-        {(() => {
-          const timeStr = formatTimeRange(gig.starts_at, gig.ends_at);
-          if (!gig.stage && !timeStr) return null;
-          return (
-            <div className="hidden lg:block text-right">
-              {gig.stage && (
-                <div className="text-xs font-bold text-white uppercase tracking-widest">
-                  {gig.stage}
-                </div>
-              )}
-              {timeStr && (
-                <div className="text-[10px] text-on-surface-variant">
-                  {timeStr}
-                </div>
-              )}
+        {gig.stage && (
+          <div className="hidden lg:block text-right">
+            <div className="text-xs font-bold text-white uppercase tracking-widest">
+              {gig.stage}
             </div>
-          );
-        })()}
+          </div>
+        )}
 
         <StatusBadge status={gig.status} />
 
@@ -190,7 +152,7 @@ function GigRow({ gig, variant }: { gig: Gig; variant: "upcoming" | "past" }) {
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-6 py-2 border border-outline-variant text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-surface transition-all whitespace-nowrap"
           >
-            Tickets
+            {gig.ticket_url ? "Tickets" : "Info"}
             <ExternalLink size={12} />
           </a>
         )}
@@ -203,10 +165,10 @@ export default function GigsSection({ gigs }: { gigs: Gig[] }) {
   const [showPast, setShowPast] = useState(false);
 
   const upcoming = gigs
-    .filter((g) => !isPastGig(g.starts_at, g.ends_at))
+    .filter((g) => !isPastGig(g.starts_at))
     .sort((a, b) => a.starts_at.localeCompare(b.starts_at));
   const past = gigs
-    .filter((g) => isPastGig(g.starts_at, g.ends_at))
+    .filter((g) => isPastGig(g.starts_at))
     .sort((a, b) => b.starts_at.localeCompare(a.starts_at));
 
   return (
